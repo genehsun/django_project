@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+
+{% block optional_js %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+
+{% block title %}Menu | HwaKim's Blog{% endblock %}
+
+{%block content%}
+	{% if latest_post_list %}
+		<ul class="archive">
+			<h3>Archive List</h3>
+			{% for post in latest_post_list %}
+				<li>
+					<a href="{{post.get_absolute_url}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a>
+					<span class="postAppendix">&nbsp;&nbsp;&nbsp;&nbsp;{{post.author}}&nbsp;&nbsp;{{post.get_published_YMD}}</span>
+				</li>
+				<hr class="line" />
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No posts are available.(menu)</p>
+	{% endif %}
+{%endblock%}

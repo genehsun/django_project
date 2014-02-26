@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+
+{% block optional_js %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+
+{% block title %}About Me | HwaKim's Blog{% endblock %}
+
+{%block content%}
+	<article class="aboutArticle">
+		<header>
+			<h3>
+				{{about.subject}}
+			</h3>
+		</header>
+		<p>
+			{{about.detail|safe}}
+		</p>
+		</br>
+	</article> 
+{%endblock%}
