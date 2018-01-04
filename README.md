@@ -17,7 +17,7 @@
 	
 此时，在浏览器中访问 <http://127.0.0.1:8000>，如果一切正常，可以看到“It worked!”。
 
-Django的一个方便之处是，它默认帮我们集成了一个admin应用用于后台管理。在使用它之前，我们需要先在数据库中创建相关的表，执行以下命令：
+Django的一个方便之处，默认帮我们集成了一个admin应用用于后台管理。在使用它之前，我们需要先在数据库中创建相关的表，执行以下命令：
 	
 	python manage.py migrate	
 	
@@ -33,13 +33,6 @@ Django的一个方便之处是，它默认帮我们集成了一个admin应用用
 
 打开settings.py，将'rest_framework'添加到'INSTALLED_APPS'的设置里。
 
-为了使用可视化的API，在urls.py文件里，添加下面的内容：
-
-	urlpatterns = [
-    	...
-	    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-	]
-	
 任何Django REST Framework的全局设置，都需要存放在一个配置字典中，名为REST_FRAMEWORK：
 
 	REST_FRAMEWORK = {
@@ -50,7 +43,7 @@ Django的一个方便之处是，它默认帮我们集成了一个admin应用用
 	
 现在我们已经做好准备，可以开始创建API了。
 
-首先，我们要创建一个专门用于提供api的应用。
+首先，我们要创建一个专门用于提供API的应用，该应用就命名为api。
 
 	python manage.py startapp api
 	
@@ -61,12 +54,10 @@ Django的一个方便之处是，它默认帮我们集成了一个admin应用用
 	from django.contrib.auth.models import User, Group
 	from rest_framework import serializers
 
-
 	class UserSerializer(serializers.HyperlinkedModelSerializer):
     	class Meta:
         	model = User
         	fields = ('url', 'username', 'email', 'is_staff')
-
 
 	class GroupSerializer(serializers.HyperlinkedModelSerializer):
     	class Meta:
@@ -101,7 +92,14 @@ Django的一个方便之处是，它默认帮我们集成了一个admin应用用
     	url(r'^', include(router.urls)),
 	]
 	
-最后，我们还需要修改项目根目录下的urls.py：
+为了使用可视化的API，在urls.py文件里，添加下面的内容：
+
+	urlpatterns = [
+    	...
+	    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+	]
+	
+最后，我们还需要修改项目根目录下的urls.py，把api应用的urls.py文件include进来：
 
 	urlpatterns = [
     	...
@@ -110,3 +108,51 @@ Django的一个方便之处是，它默认帮我们集成了一个admin应用用
 	
 至此，通过访问<http://127.0.0.1:8000/api>可以看到用于获取后台管理员账号的API已经可用了。
 	
+整个方案里很重要的一个原则是要把Django退化成一个纯提供RESTful API的工具，舍弃框架本身提供的template模板和static静态文件，这部分交给React前端框架来做。
+
+接下来，我们再创建一个blog应用：
+
+		python manage.py startapp blog
+		
+同样的，要修改'INSTALLED_APPS'配置和根目录下的urls.py文件。
+
+修改blog目录里的views.py：
+
+	from django.shortcuts import render
+
+	def index(request):
+    	return render(request, "index.html")
+    	
+其中，index.html作为应用的主入口。
+
+在blog目录里创建urls.py文件：
+
+	from django.conf.urls import url
+	from blog.views import index
+
+	urlpatterns = [
+    	url(r'^$', index, name='index'),
+	]
+
+我们还需要给index.html设置寻找路径。在settings.py里修改TEMPLATES配置：
+
+	TEMPLATES = [
+    	{
+        	...
+	        'DIRS': ['blog/templates'],
+    		...
+	    },
+	]
+	
+在blog目录下创建templates子目录，暂且实现一个静态的index.html放在里面：
+
+	<!DOCTYPE HTML>
+	<html>
+    	<body>
+        	<h1>This is a blog.</h1>
+	    </body>
+	</html>
+
+我们再访问<http://127.0.0.1:8000/blog>就可以看到页面的内容了。
+
+接下来还有两件事要做，一个是封装blog所需的API，另一个是用React构建一个动态的前端页面。
