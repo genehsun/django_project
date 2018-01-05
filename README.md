@@ -27,7 +27,7 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 	
 按提示输入信息，即可完成创建。回到浏览器输入用户名和密码进行登录。
 
-打开requirements.txt会发现我们使用了djangorestframework这个依赖。Django REST Framework是一个强大且灵活的工具包，用以构建Web APIs。我们用这个包构建RESTful API给前端调用，并且返回JSON响应数据用于页面渲染。这也是前后端分离的重要一步。
+打开requirements.txt会发现我们使用了[djangorestframework](https://github.com/encode/django-rest-framework)这个依赖。Django REST Framework是一个强大且灵活的工具包，用以构建Web APIs。我们用这个包构建RESTful API给前端调用，并且返回JSON响应数据用于页面渲染。这也是前后端分离的重要一步。
 
 接下来，我们使用Django REST Framework来封装用于获取后台管理员账号的API。
 
@@ -211,7 +211,7 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
         "categorys": "http://127.0.0.1:8000/api/categorys/"
     }
 
-接下来创建React项目，我们借助Facebook的脚手架工具create-react-app来创建项目：
+接下我们借助Facebook的脚手架工具[create-react-app](https://github.com/facebookincubator/create-react-app)来创建React项目：
 	
 	npm install -g create-react-app
 	
@@ -220,7 +220,72 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 	npm run eject
 	npm run start
 	
-其中，npm run eject是为了可以自己修改一些配置文件。
+其中，npm run eject是为了可以自己修改一些配置文件，执行之后可以看到多了config和scripts两个目录。
 
+接下来整合React和Django，使得只要启动Django的服务就可以访问React写的前端页面。requirements.txt里已经添加了[django-webpack-loader](https://github.com/ezhome/django-webpack-loader)依赖包，用于实现Django和Webpack的绑定。
 
+先修改'INSTALLED_APPS'配置添加webpack_loader应用。同时，再添加django-webpack-loader所需的一个配置字典，名为WEBPACK_LOADER：
 
+	WEBPACK_LOADER = {
+        'DEFAULT': {
+            'BUNDLE_DIR_NAME': 'bundles/',
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
+        }
+    }
+    
+STATS_FILE是指定[webpack-bundle-tracker](https://github.com/ezhome/webpack-bundle-tracker)这个Webpack插件生成的文件路径的。使用之前要先安装：
+
+    npm install webpack-bundle-tracker --save-dev
+    
+刚才执行npm run eject，就是为了根据项目结构修改一些配置，我们修改config/webpack.config.dev.js文件，把publicPath和publicUrl改成：
+
+	const publicPath = 'http://localhost:3000/';
+    const publicUrl = 'http://localhost:3000/';
+
+接着指定webpack-bundle-tracker生成webpack-stats.dev.json的路径：
+	
+	const BundleTracker = require('webpack-bundle-tracker');
+
+    module.exports = {
+        entry: [
+            ...
+            require.resolve('webpack-dev-server/client') + '?http://localhost:3000',
+            require.resolve('webpack/hot/dev-server'),
+            // require.resolve('react-dev-utils/webpackHotDevClient'),
+        ],
+        plugins: [
+            ...
+            new BundleTracker({path: paths.statsRoot, filename: 'webpack-stats.dev.json'}),
+        ],
+    }
+    
+接着打开config/paths.js，添加statsRoot变量，指定webpack-stats.dev.json生成的路径与Django服务找寻的路径是一致的：
+
+    module.exports = {
+        ...
+        statsRoot: resolveApp('../backend/project'),
+    }
+    
+接着修改index.html如下：
+
+	{% load render_bundle from webpack_loader %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="theme-color" content="#000000">
+            <title>Ponynote</title>
+        </head>
+        <body>
+            <noscript>
+                You need to enable JavaScript to run this app.
+            </noscript>
+            <div id="root"></div>
+            {% render_bundle 'main' %}
+        </body>
+    </html>
+    
+重新启动服务就可以看到<http://127.0.0.1:8000/blog>访问到的是React页面的内容了。
+    
+参照：<http://v1k45.com/blog/modern-django-part-1-setting-up-django-and-react/>
