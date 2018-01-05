@@ -37,13 +37,13 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 
 	REST_FRAMEWORK = {
 	    'DEFAULT_PERMISSION_CLASSES': [
-    	    'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    	]
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+         ]
 	}
 	
-现在我们已经做好准备，可以开始创建API了。
+现在我们已经做好准备，可以开始创建API了。我们先用Django框架自带的admin应用来暴露用于获取后台管理员用户和分组的API。
 
-首先，我们要创建一个专门用于提供API的应用，该应用就命名为api。
+首先，要创建一个专门用于提供API的应用，该应用就命名为api吧。
 
 	python manage.py startapp api
 	
@@ -55,12 +55,12 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 	from rest_framework import serializers
 
 	class UserSerializer(serializers.HyperlinkedModelSerializer):
-    	class Meta:
+        class Meta:
         	model = User
         	fields = ('url', 'username', 'email', 'is_staff')
 
 	class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    	class Meta:
+        class Meta:
         	model = Group
 	       	fields = ('url', 'name')
 	       	
@@ -71,8 +71,8 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 	from api.serializers import UserSerializer,GroupSerializer
 
 	class UserViewSet(viewsets.ModelViewSet):
-    	queryset = User.objects.all()
-    	serializer_class = UserSerializer
+	    queryset = User.objects.all()
+        serializer_class = UserSerializer
 
 	class GroupViewSet(viewsets.ModelViewSet):
     	queryset = Group.objects.all()
@@ -89,20 +89,20 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 	router.register(r'groups', GroupViewSet)
 
 	urlpatterns = [
-    	url(r'^', include(router.urls)),
-	]
+        url(r'^', include(router.urls)),
+    ]
 	
 为了使用可视化的API，在urls.py文件里，添加下面的内容：
 
 	urlpatterns = [
-    	...
+        ...
 	    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 	]
 	
 最后，我们还需要修改项目根目录下的urls.py，把api应用的urls.py文件include进来：
 
 	urlpatterns = [
-    	...
+        ...
 	    url(r'^api/', include('api.urls')),
 	]
 	
@@ -112,43 +112,41 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 
 接下来，我们再创建一个blog应用：
 
-		python manage.py startapp blog
+    python manage.py startapp blog
 		
-同样的，要修改'INSTALLED_APPS'配置和根目录下的urls.py文件。
+同样的，要修改'INSTALLED_APPS'配置添加blog应用、修改根目录下的urls.py文件引入blog应用的urls.py。
 
 修改blog目录里的views.py：
 
 	from django.shortcuts import render
 
 	def index(request):
-    	return render(request, "index.html")
+        return render(request, "index.html")
     	
-其中，index.html作为应用的主入口。
-
-在blog目录里创建urls.py文件：
+其中，index.html作为应用的主入口。在blog目录里创建urls.py文件：
 
 	from django.conf.urls import url
 	from blog.views import index
 
 	urlpatterns = [
-    	url(r'^$', index, name='index'),
-	]
+        url(r'^$', index, name='index'),
+    ]
 
 我们还需要给index.html设置寻找路径。在settings.py里修改TEMPLATES配置：
 
 	TEMPLATES = [
-    	{
-        	...
-	        'DIRS': ['blog/templates'],
-    		...
-	    },
-	]
+        {
+           ...
+           'DIRS': ['blog/templates'],
+            ...
+        },
+    ]
 	
 在blog目录下创建templates子目录，暂且实现一个静态的index.html放在里面：
 
 	<!DOCTYPE HTML>
 	<html>
-    	<body>
+        <body>
         	<h1>This is a blog.</h1>
 	    </body>
 	</html>
@@ -156,3 +154,69 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
 我们再访问<http://127.0.0.1:8000/blog>就可以看到页面的内容了。
 
 接下来还有两件事要做，一个是封装blog所需的API，另一个是用React构建一个动态的前端页面。
+
+先来创建和注册blog应用所需的models，我们分别创建一个Blog和一个Category两个model。修改api目录下的models.py
+
+    from django.db import models
+    from django.db.models import permalink
+
+    class Blog(models.Model):
+        title = models.CharField(max_length=100, unique=True)
+        slug = models.SlugField(max_length=100, unique=True)
+        body = models.TextField()
+        posted = models.DateTimeField(db_index=True, auto_now_add=True)
+        category = models.ForeignKey('Category')
+
+        def __unicode__(self):
+            return '%s' % self.title
+
+        @permalink
+        def get_absolute_url(self):
+            return ('view_blog_post', None, { 'slug': self.slug })
+
+    class Category(models.Model):
+        title = models.CharField(max_length=100, db_index=True)
+        slug = models.SlugField(max_length=100, db_index=True)
+
+        def __unicode__(self):
+            return '%s' % self.title
+
+        @permalink
+        def get_absolute_url(self):
+            return ('view_blog_category', None, { 'slug': self.slug })
+            
+然后在admin.py里注册这两个model：
+
+    from django.contrib import admin
+    from api.models import Blog, Category
+
+    class BlogAdmin(admin.ModelAdmin):
+        exclude = ['posted']
+        prepopulated_fields = {'slug': ('title',)}
+
+    class CategoryAdmin(admin.ModelAdmin):
+        prepopulated_fields = {'slug': ('title',)}
+
+    admin.site.register(Blog, BlogAdmin)
+    admin.site.register(Category, CategoryAdmin)
+    
+还需要在执行以下两条命令创建对应的数据库和应用字段更改：
+
+	python manage.py makemigrations
+	python manage.py migrate    
+	
+至此，可以在 <http://127.0.0.1:8000/admin> 后台对Blogs和Categorys进行增删改查了。
+
+类似于暴露admin应用API的做法，我们可以同样的暴露blog应用的API。一样的步骤，不再赘述。
+
+再次访问 <http://127.0.0.1:8000/api>，可以看到如下四个API了：
+
+    {
+        "users": "http://127.0.0.1:8000/api/users/",
+        "groups": "http://127.0.0.1:8000/api/groups/",
+        "blogs": "http://127.0.0.1:8000/api/blogs/",
+        "categorys": "http://127.0.0.1:8000/api/categorys/"
+    }
+
+
+
