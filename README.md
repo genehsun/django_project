@@ -115,22 +115,15 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
     python manage.py startapp blog
 		
 同样的，要修改'INSTALLED_APPS'配置添加blog应用、修改根目录下的urls.py文件引入blog应用的urls.py。
-
-修改blog目录里的views.py：
-
-	from django.shortcuts import render
-
-	def index(request):
-        return render(request, "index.html")
     	
-其中，index.html作为应用的主入口。在blog目录里创建urls.py文件：
+在blog目录里创建urls.py文件如下，其中，index.html作为应用的主入口。：
 
 	from django.conf.urls import url
-	from blog.views import index
+	from django.views.generic import TemplateView
 
 	urlpatterns = [
-        url(r'^$', index, name='index'),
-    ]
+    	url(r'^', TemplateView.as_view(template_name="index.html")),
+	]
 
 我们还需要给index.html设置寻找路径。在settings.py里修改TEMPLATES配置：
 
@@ -217,6 +210,17 @@ Django的一个方便之处，默认帮我们集成了一个admin应用用于后
         "blogs": "http://127.0.0.1:8000/api/blogs/",
         "categorys": "http://127.0.0.1:8000/api/categorys/"
     }
+
+接下来创建React项目，我们借助Facebook的脚手架工具create-react-app来创建项目：
+	
+	npm install -g create-react-app
+	
+	create-react-app frontend
+	cd frontend
+	npm run eject
+	npm run start
+	
+其中，npm run eject是为了可以自己修改一些配置文件。
 
 
 
