@@ -288,4 +288,6 @@ STATS_FILE是指定[webpack-bundle-tracker](https://github.com/ezhome/webpack-bu
     
 重新启动服务就可以看到<http://127.0.0.1:8000/blog>访问到的是React页面的内容了。
     
-参照：<http://v1k45.com/blog/modern-django-part-1-setting-up-django-and-react/>
+参考：<http://v1k45.com/blog/modern-django-part-1-setting-up-django-and-react/>
+
+接下去还要针对开发环境和生产环境，做不同的配置，以及项目部署。不在本文展开。
