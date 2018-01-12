@@ -5,10 +5,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "blog/assets"),
+]
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join("blog/webpack", 'webpack-stats.dev.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'blog/webpack/webpack-stats.dev.json'),
     }
 }
 
