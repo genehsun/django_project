@@ -8,8 +8,14 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
+
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0,PROJECT_DIR)
+
+print PROJECT_DIR
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.prod")
 
