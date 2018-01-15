@@ -19,9 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd#j_is2-0!ymjh)z%+njj&zb^u8$_v!6)0q&1ofu-n^ay15(s+'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,6 +64,10 @@ TEMPLATES = [
     },
 ]
 
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "blog/assets"),
+# ]
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
@@ -74,17 +75,6 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation

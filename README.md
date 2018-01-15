@@ -1,5 +1,8 @@
 
-本文讲述如何用Python写的Web应用框架Django结合Facebook推出的前端框架React搭建一个前后端分离的站点。
+本文讲述如何用Web应用框架Django结合Facebook推出的前端框架React搭建一个前后端分离的站点，并且在Ubuntu系统中部署到Apache Web服务器上。
+
+### 构建前后端分离的Web应用
+-----------------------
 
 工程的目录结构分为backend和frontend两部分。
 
@@ -290,4 +293,90 @@ STATS_FILE是指定[webpack-bundle-tracker](https://github.com/ezhome/webpack-bu
     
 参考：<http://v1k45.com/blog/modern-django-part-1-setting-up-django-and-react/>
 
-接下去还要针对开发环境和生产环境，做不同的配置，以及项目部署。不在本文展开。
+
+### 在VPS环境中部署项目
+--------------------
+
+虚拟专用服务器（Virtual Private Server）。可使用容器技术和虚拟化技术在一台服务器中隔离出多个VPS。每个VPS有独立的公网IP、操作系统、CPU资源、内存空间、硬盘空间。给用户和应用程序独占资源的体验。每个VPS可以向独立服务器一样，重装操作系统、安装程序、和单独重启服务器。
+
+不同于虚拟主机（Virtul Host）。虚拟主机要与别人共享一台服务器，其缺陷在于所有使用者同时共享服务器上的全部资源，当其中的一个使用者过度使用资源，负荷过重时即容易造成服务器发生问题，也因此造成危及其它使用者的情况。
+
+为什么不用云服务器？云服务器是在一组集群服务器上虚拟出多个类似独立服务器的部分，集群中每个服务器上都有云服务器的一个镜像，从而大大提高了虚拟服务器的安全稳定性，除非所有的集群内服务器全部出现问题，云服务器才会无法访问。那么为什么不用呢，没别的原因，因为穷。
+
+VPS提供商众多，我选择的是[搬瓦工](https://bwh1.net)。洛杉矶的机房、1024M内存、20G的SSD硬盘容量、1000G每月的流量，月付$4.99。ping了一下，基本在200+ms。另外，还支持随时更换机房。
+
+购买成功之后，进入My Services，搬瓦工提供了一个叫KiwiVM Control Panel的面板用于查看和管理VPS。可以方便的进行重装系统、查看系统资源的使用情况、重置Root密码等。
+
+搬瓦工只提供Linux操作系统，我购买的时候默认安装了CentOS，在安装程序的时候碰到各种问题，加上默认安装的Python版本和Apache版本较低，最后重装成了Ubuntu-16.04-x86_64。
+
+在本地打开终端，用SSH登录就可以进行远程操作了。第一次使用root帐号和密码登录：
+	
+	ssh root@yourip -p 'sshport'。
+
+然后创建一个新用户：
+	
+	adduser ‘username’
+
+创建完成后，编辑/etc/sudoers文件，给该用户授以sudo权限：
+
+	'username'    ALL=(ALL:ALL) ALL
+	
+保存退出后，该用户就有sudo权限了，往后就可以用该用户远程登录了。
+
+需要安装的程序：
+
+	sudo apt install git
+	sudo apt install pip
+	sudo apt install apache2
+	sudo apt install libapache2-mod-wsgi
+	
+git和apache2可能是已经预装了的。
+
+接着把项目clone到/var/www目录下，pip install项目所需的依赖。
+
+进入/etc/apache2/sites-available这个目录，创建站点的apache配置文件：
+
+	sudo vi yoursite.conf
+
+具体内容如下：
+
+	<VirtualHost *:80>
+        LogLevel info
+
+        ErrorLog "/var/www/log/apache2/mysite-error_log"
+        CustomLog "/var/www/log/apache2/mysite-access_log" common
+
+        ServerName yoursite.com
+        ServerAdmin admin@example.com
+
+        # Static files
+        DocumentRoot "/var/www/yoursite"
+        Alias /static/ /var/www/yoursite/static/
+
+        <Directory "/var/www/yoursite/static">
+            Require all granted
+        </Directory>
+
+        # WGSI configuration
+        WSGIScriptAlias / /var/www/yoursite/project/wsgi.py
+
+        <Directory /var/www/yoursite/project>
+            <Files wsgi.py>
+                Require all granted
+            </Files>
+        </Directory>
+    </VirtualHost>
+    
+使默认的配置文件失效，使自己站点的配置文件生效：
+	
+	sudo a2dissite 000-default.conf
+	sudo a2ensite yoursite.conf 
+
+部署的时候，还需要收集静态文件，到项目目录下之行：
+
+	python manage.py collectstatic
+	
+最后重启apache服务器：
+
+	sudo apachectl graceful
+	
