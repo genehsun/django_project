@@ -64,9 +64,9 @@ TEMPLATES = [
     },
 ]
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "blog/assets"),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "blog/assets"),
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
