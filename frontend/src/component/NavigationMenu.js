@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {List, ListItem, makeSelectable} from 'material-ui/List';
+import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider'
@@ -47,7 +47,7 @@ class NavigationMenu extends Component {
 		return (
             <div>
                 <AppBar
-                    title="Title" 
+                    title="Ying's Blog" 
                     iconClassNameRight="muidocs-icon-custom-github" 
                     showMenuIconButton={true}
                     zDepth={0}
