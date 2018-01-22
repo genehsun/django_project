@@ -10,7 +10,20 @@ import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 
 const SelectableList = makeSelectable(List);
+
 class NavigationMenu extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {open: false};
+    }
+
+    style = {
+		drawer: {paddingTop: "5%"}, 
+		iconStyle: { marginRight: 24 }, 
+		topList: {marginBottom: "3%"}
+    };
+
 	static propTypes = {
         categories: PropTypes.array
 	};
@@ -19,17 +32,6 @@ class NavigationMenu extends Component {
 		router : PropTypes.object
 	};
 
-	style = {
-		drawer: {paddingTop: "5%"}, 
-		iconStyle: { marginRight: 24 }, 
-		topList: {marginBottom: "3%"}
-    };
-    
-    constructor(props) {
-        super(props);
-        this.state = {open: false};
-    }
-	
 	componentWillMount() {
 		this.setState({
 			selectedIndex: this.props.defaultValue,

@@ -9,7 +9,8 @@ class AppFooter extends Component {
 			marginRight: "0%", marginBottom: "0%",
 			textAlign: 'center',
 			backgroundColor: '#212121',
-		}, p: {
+		}, 
+		p: {
 			margin: '0 auto',
 			padding: 0,
 			color: 'rgba(255, 255, 255, 0.54)',

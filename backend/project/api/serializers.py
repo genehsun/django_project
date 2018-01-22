@@ -19,7 +19,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class BlogSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Blog
-        fields = ('title', 'slug', 'body', 'posted', 'category')
+        fields = ('title', 'slug', 'short_content', 'body', 'posted', 'category')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
