@@ -7,7 +7,7 @@ DEBUG = False
 # You'd better get the secret key from ENV
 SECRET_KEY = 'd#j_is2-0!ymjh)z%+njj&zb^u8$_v!6)0q&1ofu-n^ay15(s+'
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'dev.myblog.com', '67.218.132.52']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'wakim.site', 'www.wakim.site', '67.218.132.52']
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

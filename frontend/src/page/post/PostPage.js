@@ -39,7 +39,7 @@ class PostPage extends Component {
         let _self = this;
         fetch(request)
         .then(function(response) {
-            return response.json()
+            return response.json();
         }).then(function(json) {
             _self.context.changeSelectedPath("", json.title);
             // console.log('parsed json', json);
@@ -47,7 +47,7 @@ class PostPage extends Component {
                 post: json
             });
         }).catch(function(ex) {
-            console.log('parsing failed', ex);
+            console.warn('parsing failed', ex);
         })
     };
 

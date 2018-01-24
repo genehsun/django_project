@@ -31,7 +31,7 @@ class HomePage extends Component {
         let _self = this;
         fetch(request)
         .then(function(response) {
-            return response.json()
+            return response.json();
         }).then(function(json) {
             // console.log('parsed json', json);
             _self.setState({

@@ -7,9 +7,9 @@
 工程的目录结构分为backend和frontend两部分。
 
 其中backend是Django后端项目所在的目录。目录里的requirements.txt用于指定项目的依赖包，进入backend目录，用以下命令进行安装：
-    
-    pip install -r requirements.txt
-    
+
+	pip install -r requirements.txt
+	
 安装之后，可以使用以下命令来创建一个Django项目：
 
 	django-admin.py startproject project
@@ -303,7 +303,7 @@ STATS_FILE是指定[webpack-bundle-tracker](https://github.com/ezhome/webpack-bu
 
 为什么不用云服务器？云服务器是在一组集群服务器上虚拟出多个类似独立服务器的部分，集群中每个服务器上都有云服务器的一个镜像，从而大大提高了虚拟服务器的安全稳定性，除非所有的集群内服务器全部出现问题，云服务器才会无法访问。那么为什么不用呢，没别的原因，因为穷。
 
-VPS提供商众多，我选择的是[搬瓦工](https://bwh1.net)。洛杉矶的机房、1024M内存、20G的SSD硬盘容量、1000G每月的流量，月付$4.99。ping了一下，基本在200+ms。另外，还支持随时更换机房。
+VPS提供商众多，我选择的是[搬瓦工](https://bwh1.net)。洛杉矶的机房、1024M内存、20G的SSD硬盘容量、1100G每月的流量，月付$4.99。ping了一下，基本在200+ms。另外，还支持随时更换机房。
 
 购买成功之后，进入My Services，搬瓦工提供了一个叫KiwiVM Control Panel的面板用于查看和管理VPS。可以方便的进行重装系统、查看系统资源的使用情况、重置Root密码等。
 
