@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.serializers import UserSerializer, GroupSerializer
-from api.models import Blog, Category
-from api.serializers import BlogSerializer, CategorySerializer
+from api.models import Blog, Category, About
+from api.serializers import BlogSerializer, CategorySerializer, AboutSerializer
 
 # Create your views here.
 
@@ -24,3 +24,7 @@ class BlogViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+class AboutViewSet(viewsets.ModelViewSet):
+    queryset = About.objects.all()
+    serializer_class = AboutSerializer

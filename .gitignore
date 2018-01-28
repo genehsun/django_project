@@ -1,2 +1,5 @@
 #Python:
 *.py[cod]
+
+backend/log/*
+backend/project/static/*

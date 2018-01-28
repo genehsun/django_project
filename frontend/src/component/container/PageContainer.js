@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppFooter from '../footer/AppFooter';
-import AppNavigator from '../navigator/AppNavigator';
 
 const MONTH_NAME = [
     "January", "February", "March", "April", 
@@ -24,7 +22,7 @@ class PageContainer extends Component {
 
     // 在子组件中用于说明context接收的数据类型
     static contextTypes = {
-        router : PropTypes.object.isRequired,
+        // router : PropTypes.object.isRequired,
     };
     
     // 用于说明上下文中的数据类型
@@ -35,7 +33,6 @@ class PageContainer extends Component {
         // function
         formatYMD: PropTypes.func.isRequired,
         changeSelectedPath: PropTypes.func.isRequired,
-        pushRouter: PropTypes.func.isRequired,
     };
 
     // 用于指定子组件可直接访问的上下文数据
@@ -45,20 +42,7 @@ class PageContainer extends Component {
 
             formatYMD: this.formatYMD,
             changeSelectedPath: this.changeSelectedPath,
-            pushRouter: this.pushRouter,
         }
-    };
-
-    componentDidMount() {
-
-    };
-
-    componentWillUnmount() {
-
-    };
-
-    pushRouter = (path) => {
-        this.context.router.history.push(path);
     };
 
     changeSelectedPath = (path, pageTitle) => {
@@ -89,9 +73,7 @@ class PageContainer extends Component {
 
         return (
             <div>
-                <AppNavigator />
                 {this.props.children}
-                <AppFooter />
             </div>
         );
     };

@@ -21,4 +21,7 @@ urlpatterns = [
     url(r'^api/', include('api.urls')),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', include('blog.urls')),
+    url(r'^me/', include('blog.urls')),
+    url(r'^about/', include('blog.urls')),
+    url(r'^post/([0-9])/$', include('blog.urls')),
 ]

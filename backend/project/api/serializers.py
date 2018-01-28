@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api.models import Blog, Category
+from api.models import Blog, Category, About
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,3 +25,8 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('title', 'slug')
+
+class AboutSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = About
+        fields = ('title', 'slug', 'body', 'posted')
