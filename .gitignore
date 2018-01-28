@@ -3,3 +3,4 @@
 
 backend/log/*
 backend/project/static/*
+backend/project/db.sqlite3
