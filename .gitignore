@@ -2,5 +2,5 @@
 *.py[cod]
 
 backend/log/*
-backend/project/static/*
-backend/project/db.sqlite3
+backend/static/*
+backend/db.sqlite3
