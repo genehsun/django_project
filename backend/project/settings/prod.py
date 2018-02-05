@@ -9,6 +9,8 @@ SECRET_KEY = os.environ['WAKIM_SITE_SECRET_KEY']
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'wakim.site', 'www.wakim.site', '67.218.132.52']
 
+WSGI_APPLICATION = 'project.wsgiprod.application'
+
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Database

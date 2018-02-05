@@ -8,6 +8,8 @@ SECRET_KEY = 'd#j_is2-0!ymjh)z%+njj&zb^u8$_v!6)0q&1ofu-n^ay15(s+'
 
 ALLOWED_HOSTS = []
 
+WSGI_APPLICATION = 'project.wsgidev.application'
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
