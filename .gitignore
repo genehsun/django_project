@@ -3,5 +3,4 @@
 
 backend/project/wsgiprod.py
 backend/log/*
-backend/static/*
 backend/db.sqlite3
