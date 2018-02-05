@@ -1,6 +1,7 @@
 #Python:
 *.py[cod]
 
+backend/project/wsgi.py
 backend/log/*
 backend/static/*
 backend/db.sqlite3
