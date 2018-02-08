@@ -40,6 +40,11 @@ class Blog(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
+    owner = models.ForeignKey('auth.User',
+        related_name='categorylists', 
+        on_delete=models.CASCADE,
+        default=1
+    )
 
     def __unicode__(self):
         return '%s' % self.title
@@ -53,6 +58,11 @@ class About(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     body = models.TextField()
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
+    owner = models.ForeignKey('auth.User',
+        related_name='abouts', 
+        on_delete=models.CASCADE,
+        default=1
+    )
 
     def __unicode__(self):
         return '%s' % self.title

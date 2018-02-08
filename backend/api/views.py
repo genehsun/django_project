@@ -7,7 +7,7 @@ from rest_framework import permissions
 from api.serializers import UserSerializer, GroupSerializer
 from api.models import Blog, Category, About
 from api.serializers import BlogSerializer, CategorySerializer, AboutSerializer
-from api.permissions import IsOwner
+from api.permissions import IsOwner, IsOwnerOrReadOnly
 from rest_framework import generics
 
 # Create your views here.
@@ -24,38 +24,25 @@ class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
-    # permission_classes = (
-    #     permissions.IsAuthenticated, 
-    #     IsOwner
-    # )
-
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, 
+        IsOwnerOrReadOnly
+    )
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, 
+        IsOwnerOrReadOnly
+    )
+
 class AboutViewSet(viewsets.ModelViewSet):
     queryset = About.objects.all()
     serializer_class = AboutSerializer
 
-# class CreateView(generics.ListCreateAPIView):
-#     queryset = Blog.objects.all()
-#     serializer_class = BlogSerializer
-#     permission_classes = (
-#         permissions.IsAuthenticated, 
-#         IsOwner
-#     )
-
-#     def perform_create(self, serializer):
-#         # serializer.save()
-#         serializer.save(owner=self.request.user)
-
-# class DetailsView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Blog.objects.all()
-#     serializer_class = BlogSerializer
-#     permission_classes = (
-#         permissions.IsAuthenticated,
-#         IsOwner
-#     )
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, 
+        IsOwnerOrReadOnly
+    )

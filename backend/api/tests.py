@@ -116,14 +116,20 @@ class ViewTestCase(TestCase):
         """Test the bloglist model can create a bloglist."""
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
 
-    # def test_authorization_is_enforced(self):
-    #     """Test that the api has user authorization."""
+    def test_authorization_is_enforced_create(self):
+        """Test the bloglist model can create a bloglist."""
+        new_client = APIClient()
+        self.blog_data = {'title': 'ddd', 'short_content': 'Write world class code', 'slug': "aaa", 'body': 'iiooo', 'category': 1}
+        self.response = new_client.post('/api/blogs/', self.blog_data, format='json')
+        self.assertEqual(self.response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    #     new_client = APIClient()
-    #     bloglist = Blog.objects.get()
-    #     response = new_client.get('/api/blogs/' + str(bloglist.id) + '/', format='json')
-    #     # response = new_client.get('/api/postlists/', kwargs={'pk': bloglist.id}, format="json")
-    #     self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    def test_authorization_is_enforced(self):
+        """Test that the api has user authorization."""
+        new_client = APIClient()
+        bloglist = Blog.objects.get()
+        response = new_client.get('/api/blogs/' + str(bloglist.id) + '/', format='json')
+        # response = new_client.get('/api/postlists/', kwargs={'pk': bloglist.id}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_api_can_get_a_bloglist(self):
         """Test the api can get a given bloglist."""
@@ -138,6 +144,12 @@ class ViewTestCase(TestCase):
         self.blog_data['title'] = 'iiiii'
         res = self.client.put('/api/blogs/' + str(bloglist.id) + '/', self.blog_data, format='json')
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_authorization_is_enforced_delete(self):
+        bloglist = Blog.objects.get()
+        new_client = APIClient()
+        response = new_client.delete('/api/blogs/' + str(bloglist.id) + '/', format='json')
+        self.assertEquals(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_api_can_delete_bloglist(self):
         """Test the api can delete a bloglist."""

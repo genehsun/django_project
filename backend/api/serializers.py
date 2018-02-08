@@ -24,11 +24,15 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = ('title', 'slug', 'owner', 'short_content', 'body', 'posted', 'category')
 
 class CategorySerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    
     class Meta:
         model = Category
-        fields = ('title', 'slug')
+        fields = ('title', 'slug', 'owner')
 
 class AboutSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    
     class Meta:
         model = About
-        fields = ('title', 'slug', 'body', 'posted')
+        fields = ('title', 'slug', 'owner', 'body', 'posted')
