@@ -2,14 +2,14 @@
 ---
 本项目实践了一个前后端分离的站点，使用Django、Django Rest Framework、ReactJS、Material-UI，部署在Apache服务上。
 
-要在开发环境中运行本项目可以把代码clone到本地，在终端执行：
+要在开发环境中运行本项目可以把代码clone到本地，在终端运行backend工程：
 
 	cd django_project/backend
 	pip install -r requirements.txt
 	python manage.py migrate --settings=project.settings.dev
 	python manage.py runserver --settings=project.settings.dev
 	
-同时打开另一个终端：
+同时打开另一个终端运行frontend工程：
 
 	cd django_project/frontend
 	npm run start

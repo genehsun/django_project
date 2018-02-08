@@ -6,27 +6,29 @@ from rest_framework import serializers
 from api.models import Blog, Category, About
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'is_staff')
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
 
-class BlogSerializer(serializers.HyperlinkedModelSerializer):
+class BlogSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Blog
-        fields = ('title', 'slug', 'short_content', 'body', 'posted', 'category')
+        fields = ('title', 'slug', 'owner', 'short_content', 'body', 'posted', 'category')
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('title', 'slug')
 
-class AboutSerializer(serializers.HyperlinkedModelSerializer):
+class AboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
         fields = ('title', 'slug', 'body', 'posted')

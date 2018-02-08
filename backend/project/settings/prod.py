@@ -4,7 +4,6 @@ from base import *
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# You'd better get the secret key from ENV
 SECRET_KEY = os.environ['WAKIM_SITE_SECRET_KEY']
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'wakim.site', 'www.wakim.site', '67.218.132.52']

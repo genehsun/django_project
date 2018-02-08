@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'webpack_loader',
     'api',
-    'blog'
+    'blog',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -69,8 +70,12 @@ STATICFILES_DIRS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
