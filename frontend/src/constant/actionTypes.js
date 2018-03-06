@@ -1,0 +1,8 @@
+
+export const REQUEST_BLOGS = 'REQUEST_BLOGS';
+export const RECEIVE_BLOGS = 'RECEIVE_BLOGS';
+
+export const REQUEST_ABOUT = 'REQUEST_ABOUT';
+export const RECEIVE_ABOUT = 'RECEIVE_ABOUT';
+
+export const CHANGE_PATH = 'CHANGE_SELECTED_PATH';

@@ -21,7 +21,7 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ('title', 'slug', 'owner', 'short_content', 'body', 'posted', 'category')
+        fields = ('id', 'title', 'slug', 'owner', 'short_content', 'body', 'posted', 'category')
 
 class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
