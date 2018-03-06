@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loading from '../component/Loading';
 import Detail from '../component/Detail';
-import { fetchBlogById, fetchBlogs, changeSelectedPath } from '../action';
+import { fetchBlogs, changeSelectedPath } from '../action';
 
 class DetailContainer extends Component {
     componentDidMount() {
@@ -21,7 +21,7 @@ class DetailContainer extends Component {
             let content = {};
             const id = this.props.match.params.id;
             this.props.blogs.items.forEach(function(value) {
-                if (value.id === parseInt(id)) {
+                if (value.id === parseInt(id, 10)) {
                     content = value;
                 }
             })
