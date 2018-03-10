@@ -14,13 +14,16 @@ class BlogList extends Component {
             <div className="detail-container">
                 {this.props.items.map((blog, index) => {
                     return (
-                        <Card className="detail-card" key={index}>
-                            <CardTitle title={blog.title} subtitle={formatYMD(blog.posted)}/>
-                            <CardText>{blog.short_content}</CardText>
-                            <CardActions>
-                                <RaisedButton primary={true} label="Read More" containerElement={<Link to={"/post/"+blog.id} />} />
-                            </CardActions>
-                        </Card>
+                        <div key={index}>
+                            <Card className="detail-card">
+                                <CardTitle title={blog.title} subtitle={formatYMD(blog.posted)}/>
+                                <CardText>{blog.short_content}</CardText>
+                                <CardActions>
+                                    <RaisedButton primary={true} label="Read More" containerElement={<Link to={"/post/"+blog.id} />} />
+                                </CardActions>
+                            </Card>
+                            <div style={{marginBottom: '5%'}} />
+                        </div>
                     );
                 })}
             </div>

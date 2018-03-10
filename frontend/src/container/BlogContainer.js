@@ -12,7 +12,7 @@ class BlogContainer extends Component {
     };
     
     render() {
-        console.warn("BlogContainer render", this.props);
+        console.warn("BlogContainer render");
 
         if (this.props.isFetching) {
             return (<Loading />)

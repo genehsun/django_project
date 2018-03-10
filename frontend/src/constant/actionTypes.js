@@ -6,3 +6,5 @@ export const REQUEST_ABOUT = 'REQUEST_ABOUT';
 export const RECEIVE_ABOUT = 'RECEIVE_ABOUT';
 
 export const CHANGE_PATH = 'CHANGE_SELECTED_PATH';
+
+export const TERMINAL_TYPE = 'TERMINAL_TYPE';

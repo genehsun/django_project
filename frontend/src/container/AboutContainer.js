@@ -12,7 +12,7 @@ class AboutContainer extends Component {
     };
 
     render() {
-        console.warn("AboutContainer render", this.props);
+        console.warn("AboutContainer render");
 
         if (this.props.isFetching) {
             return (<Loading />)

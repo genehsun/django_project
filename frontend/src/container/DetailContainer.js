@@ -7,13 +7,12 @@ import { fetchBlogs, changeSelectedPath } from '../action';
 
 class DetailContainer extends Component {
     componentDidMount() {
-        // this.props.dispatch(fetchBlogById(this.props.match.params.id));
         this.props.dispatch(fetchBlogs());
         this.props.dispatch(changeSelectedPath(""));
     };
 
     render() {
-        console.warn("DetailContainer render", this.props);
+        console.warn("DetailContainer render");
 
         if (this.props.isFetching) {
             return (<Loading />)

@@ -132,16 +132,15 @@
 }
 
 .detail-container {
-  margin-top: 0%;
-  margin-bottom: 7%;
-  margin-left: 5%;
-  margin-right: 5%;
+  padding-top: 3%;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .detail-card {
-  margin-top: 5%;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-top: 0%;
-  padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 0%;
+    padding-bottom: 1%;
 }
