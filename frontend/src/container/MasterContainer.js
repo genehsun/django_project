@@ -31,10 +31,10 @@ class MasterContainer extends Component {
         || versions.android 
         || versions.iPhone 
         || versions.iPad) {        
-            console.log('mobile');
+            // console.log('mobile');
             this.setState({ open: false, docked: false, isMobile: true });
         } else {
-            console.log('pc');
+            // console.log('pc');
             this.setState({ open: true, docked: true, isMobile: false });
         }
     };
@@ -96,7 +96,7 @@ class MasterContainer extends Component {
                                 <ListItem primaryText="本站" leftIcon={<ActionLabel />} value="/about" containerElement={<Link to="/about" />} />
                             </SelectableList>
                         </Drawer>
-                        <div style={{ paddingTop: '14%' }}>
+                        <div style={{ paddingTop: '16%' }}>
                             <Switch>
                                 <Route exact path="/" component={BlogContainer} />
                                 <Route path="/post/:id" component={DetailContainer} />
