@@ -9,6 +9,9 @@ from api.models import Blog, Category, About
 from api.serializers import BlogSerializer, CategorySerializer, AboutSerializer
 from api.permissions import IsOwner, IsOwnerOrReadOnly
 from rest_framework import generics
+from rest_framework.decorators import detail_route, list_route, api_view
+from rest_framework.response import Response
+import json
 
 # Create your views here.
 
@@ -21,13 +24,24 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GroupSerializer
 
 class BlogViewSet(viewsets.ModelViewSet):
-    queryset = Blog.objects.all()
+    queryset = Blog.objects.all().order_by("-posted")
     serializer_class = BlogSerializer
 
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly, 
         IsOwnerOrReadOnly
     )
+
+# 待优化
+class CategoryBlogViewSet(viewsets.ModelViewSet):
+    serializer_class = BlogSerializer
+    queryset = Blog.objects.all()
+
+    @list_route(methods=['post'])
+    def recent(self, request, *args, **kwargs):
+        category = json.loads(request.data['json'])['category']
+        queryset = Blog.objects.filter(category=category).order_by("-posted")
+        return Response(queryset.values())
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

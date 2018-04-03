@@ -4,6 +4,10 @@ import {
   RECEIVE_BLOGS, 
   REQUEST_ABOUT,
   RECEIVE_ABOUT,
+  REQUEST_CATEGORIES,
+  RECEIVE_CATEGORIES,
+  REQUEST_CATEGORYBLOGS,
+  RECEIVE_CATEGORYBLOGS,
   CHANGE_PATH,
 } from '../constant/actionTypes';
 
@@ -35,6 +39,32 @@ function requestBlogs() {
 function receiveBlogs(json) {
   return {
     type: RECEIVE_BLOGS,
+    items: json
+  }
+}
+
+function requestCategories() {
+  return {
+    type: REQUEST_CATEGORIES
+  }
+}
+
+function receiveCategories(json) {
+  return {
+    type: RECEIVE_CATEGORIES,
+    items: json
+  }
+}
+
+function requestCategoryBlogs() {
+  return {
+    type: REQUEST_CATEGORYBLOGS
+  }
+}
+
+function receiveCategoryBlogs(json) {
+  return {
+    type: RECEIVE_CATEGORYBLOGS,
     items: json
   }
 }
@@ -113,6 +143,38 @@ export function fetchBlogs() {
     fetch(request)
     .then(response => response.json())
     .then(json => dispatch(receiveBlogs(json)))
+    .catch(ex => console.warn('Parsing Failed', ex));
+  }
+}
+
+export function fetchCategoryBlogs(id) {
+  return dispatch => {
+    dispatch(requestCategoryBlogs())
+
+    var data = new FormData();
+    data.append("json", JSON.stringify({category: id}));
+  
+    fetch("/api/categoryblogs/recent/", {method: "POST", body: data})
+    .then(response => response.json())
+    .then(json => dispatch(receiveCategoryBlogs(json)))
+    .catch(ex => console.warn('Parsing Failed', ex));
+  }
+}
+
+export function fetchCategories() {
+  return dispatch => {
+    dispatch(requestCategories())
+    
+    var headers = new Headers();
+    headers.append('Accept', 'application/json');
+    var request = new Request("/api/categories/", {
+        headers: headers,
+        method:"GET"
+    });
+    
+    fetch(request)
+    .then(response => response.json())
+    .then(json => dispatch(receiveCategories(json)))
     .catch(ex => console.warn('Parsing Failed', ex));
   }
 }

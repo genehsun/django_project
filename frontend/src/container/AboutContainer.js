@@ -8,7 +8,7 @@ import { fetchAbout, changeSelectedPath } from '../action';
 class AboutContainer extends Component {
     componentDidMount() {
         this.props.dispatch(fetchAbout());
-        this.props.dispatch(changeSelectedPath("/about"));
+        this.props.dispatch(changeSelectedPath(this.props.match.url));
     };
 
     render() {

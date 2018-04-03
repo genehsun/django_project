@@ -7,8 +7,10 @@ import { fetchBlogs, changeSelectedPath } from '../action';
 
 class BlogContainer extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchBlogs());
-        this.props.dispatch(changeSelectedPath("/"));
+        // if (this.props.blogs && (!this.props.blogs.items || this.props.blogs.items.length == 0)) {
+            this.props.dispatch(fetchBlogs());
+            this.props.dispatch(changeSelectedPath(this.props.match.url));
+        // }
     };
     
     render() {

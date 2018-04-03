@@ -4,8 +4,36 @@ import {
   RECEIVE_BLOGS,
   REQUEST_ABOUT,
   RECEIVE_ABOUT,
+  REQUEST_CATEGORIES,
+  RECEIVE_CATEGORIES,
+  REQUEST_CATEGORYBLOGS,
+  RECEIVE_CATEGORYBLOGS,
   CHANGE_PATH
 } from '../constant/actionTypes';
+
+function categoryblogs(state = {}, action) {
+  switch(action.type) {
+    case REQUEST_CATEGORYBLOGS:
+    case RECEIVE_CATEGORYBLOGS:
+      let obj = Object.assign({}, state, action);
+      // console.log("blogs reducer", action.type, obj);
+      return obj;
+    default:
+      return state;
+  }
+}
+
+function categories(state = {}, action) {
+  switch(action.type) {
+    case REQUEST_CATEGORIES:
+    case RECEIVE_CATEGORIES:
+      let obj = Object.assign({}, state, action);
+      // console.log("blogs reducer", action.type, obj);
+      return obj;
+    default:
+      return state;
+  }
+}
 
 function blogs(state = {}, action) {
   switch(action.type) {
@@ -43,6 +71,8 @@ function selectedPath(state = {}, action) {
 }
 
 const reducer = combineReducers({
+  categoryblogs,
+  categories,
   blogs,
   about,
   selectedPath

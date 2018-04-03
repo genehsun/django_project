@@ -8,7 +8,7 @@ import { fetchBlogs, changeSelectedPath } from '../action';
 class DetailContainer extends Component {
     componentDidMount() {
         this.props.dispatch(fetchBlogs());
-        this.props.dispatch(changeSelectedPath(""));
+        this.props.dispatch(changeSelectedPath(this.props.match.url));
     };
 
     render() {

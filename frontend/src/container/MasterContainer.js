@@ -14,14 +14,16 @@ import AboutContainer from '../container/AboutContainer';
 import NotFound from '../component/NotFound';
 import AppFooter from '../component/AppFooter';
 import BlogContainer from '../container/BlogContainer';
+import CategoryContainer from '../container/CategoryContainer';
 import DetailContainer from '../container/DetailContainer';
+import { fetchCategories } from '../action';
 
 const SelectableList = makeSelectable(List);
 
 class MasterContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { isMobile: false, open: false, docked: false };
+        this.state = { isMobile: false, open: false, docked: false, categories: [] };
     };
 
     onWindowResize = () => {
@@ -31,22 +33,26 @@ class MasterContainer extends Component {
         || versions.android 
         || versions.iPhone 
         || versions.iPad) {        
-            // console.log('mobile');
+            console.log('mobile');
             this.setState({ open: false, docked: false, isMobile: true });
         } else {
-            // console.log('pc');
+            console.log('pc');
             this.setState({ open: true, docked: true, isMobile: false });
         }
     };
     
 	handleChange = (event, index) => {
-        this.setState({
-            open: false
-        });
+        if (this.state.isMobile) {
+            this.setState({
+                open: false
+            });
+        }
     };
     
     handleLeft = () => {
-        this.setState({open: !this.state.open})
+        if (this.state.isMobile) {
+            this.setState({open: !this.state.open})
+        }
     };
 
     handleRight = () => {
@@ -54,6 +60,7 @@ class MasterContainer extends Component {
     };
 
     componentDidMount() {
+        this.props.dispatch(fetchCategories());
         this.onWindowResize();
         window.addEventListener('resize', this.onWindowResize);
     }
@@ -66,7 +73,18 @@ class MasterContainer extends Component {
 	render () {
         console.warn("MasterContainer render");
 
-        if (this.state.isMobile) {
+        var mobileStyle = {
+            paddingTop: '16%'
+        }
+
+        var pcStyle = {
+            paddingLeft: '17.8%',
+            paddingTop: '4%'
+        }
+
+        if (this.props.isFetching) {
+            return (<div />)
+        } else {
             return (
                 <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
                     <div>
@@ -92,71 +110,52 @@ class MasterContainer extends Component {
                                 <Subheader>首页</Subheader>
                                 <ListItem primaryText="所有文章" leftIcon={<ActionLabel />} value="/" containerElement={<Link to="/" />} />
                                 <Divider />
-                                <Subheader>关于</Subheader>
-                                <ListItem primaryText="本站" leftIcon={<ActionLabel />} value="/about" containerElement={<Link to="/about" />} />
-                            </SelectableList>
-                        </Drawer>
-                        <div style={{ paddingTop: '16%' }}>
-                            <Switch>
-                                <Route exact path="/" component={BlogContainer} />
-                                <Route path="/post/:id" component={DetailContainer} />
-                                <Route path="/about" component={AboutContainer} />
-                                <Route path="*" component={NotFound}/>
-                            </Switch>
-                            <AppFooter />
-                        </div>
-                    </div>
-                </BrowserRouter>
-            );
-        } else {
-            return (
-                <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
-                    <div>
-                        <AppBar
-                            title="Wakim's Blog"
-                            iconClassNameRight="muidocs-icon-custom-github" 
-                            showMenuIconButton={true}
-                            zDepth={0}
-                            // onLeftIconButtonClick={this.handleLeft}
-                            onRightIconButtonClick={this.handleRight}
-                            style={{ position: 'fixed', top: 0, zIndex: 10000 }} 
-                        />
-                        <Drawer
-                            open={this.state.open} 
-                            docked={this.state.docked}
-                            containerStyle={{ top: 56 }}
-                            onRequestChange={(open) => this.setState({open})}
-                        >
-                            <SelectableList
-                                value={this.props.selectedPath.path}
-                                // onChange={this.handleChange}
-                            >
-                                <Subheader>首页</Subheader>
-                                <ListItem primaryText="所有文章" leftIcon={<ActionLabel />} value="/" containerElement={<Link to="/" />} />
+                                <Subheader>分类</Subheader>
+                                {this.props.categories.map((item, index) => {
+                                    return (
+                                        <ListItem
+                                            key={index}
+                                            primaryText={item.title}
+                                            leftIcon={<ActionLabel />}
+                                            value={"/category/" + item.id}  
+                                            containerElement={<Link to={"/category/" + item.id} />} />);
+                                })}
                                 <Divider />
                                 <Subheader>关于</Subheader>
-                                <ListItem primaryText="本站" leftIcon={<ActionLabel />} value="/about" containerElement={<Link to="/about" />} />
+                                <ListItem 
+                                    primaryText="站点介绍" 
+                                    leftIcon={<ActionLabel />} 
+                                    value="/about" 
+                                    containerElement={<Link to="/about" />} />
                             </SelectableList>
                         </Drawer>
-                        <div style={{ paddingLeft: '17.8%', paddingTop: '4%' }}>
+                        <div style={this.state.isMobile ? mobileStyle : pcStyle}>
                             <Switch>
                                 <Route exact path="/" component={BlogContainer} />
+                                <Route path="/category/:id" component={CategoryContainer} />
                                 <Route path="/post/:id" component={DetailContainer} />
                                 <Route path="/about" component={AboutContainer} />
                                 <Route path="*" component={NotFound}/>
                             </Switch>
                             <AppFooter />
                         </div>
+                        
                     </div>
                 </BrowserRouter>
             );
         }
-		
 	}
 }
 
 function mapStateToProps(state) {
+    let isFetching = true;
+    if (state.categories.items && state.categories.items.length !== 0) {
+        isFetching = false;
+    }
+
     return {
+        isFetching,
+        categories: state.categories.items,
         selectedPath: state.selectedPath,
     }
 }
