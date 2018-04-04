@@ -1,5 +1,9 @@
 
-本项目实践了一个前后端分离的站点，使用Django、Django REST Framework、ReactJS、React Router、React Redux、Material-UI，部署在Apache服务上。
+使用Django、Django REST Framework、ReactJS、React Router、React Redux、Material-UI，实践前后端分离的站点。
+
+---
+
+### 如何运行
 
 要在开发环境中运行本项目可以把代码clone到本地，在终端运行backend工程：
 
@@ -40,7 +44,10 @@ Django REST Framework提供了一个可视化的API查看界面，要查看项�
 * [ ] 视觉优化
 * [ ] 服务器迁移提高访问速度
 
+### 联系我
 
+WeChat：WakimSun
+Email：genehsun@gmail.com
 
 
 
