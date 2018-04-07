@@ -27,10 +27,16 @@ class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all().order_by("-posted")
     serializer_class = BlogSerializer
 
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly, 
-        IsOwnerOrReadOnly
-    )
+    # permission_classes = (
+    #     permissions.IsAuthenticatedOrReadOnly, 
+    #     IsOwnerOrReadOnly
+    # )
+
+    @list_route(methods=['post'])
+    def detail(self, request, *args, **kwargs):
+        post_id = json.loads(request.data['json'])['post_id']
+        queryset = Blog.objects.filter(id=post_id)
+        return Response(queryset.values())
 
 # 待优化
 class CategoryBlogViewSet(viewsets.ModelViewSet):

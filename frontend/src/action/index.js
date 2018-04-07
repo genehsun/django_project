@@ -8,8 +8,17 @@ import {
   RECEIVE_CATEGORIES,
   REQUEST_CATEGORYBLOGS,
   RECEIVE_CATEGORYBLOGS,
+  REQUEST_BLOG_DETAIL,
+  RECEIVE_BLOG_DETAIL,
   CHANGE_PATH,
 } from '../constant/actionTypes';
+
+import hljs from 'highlight.js';
+import marked from 'marked';
+
+marked.setOptions({
+  highlight: code => hljs.highlightAuto(code).value,
+});
 
 const MONTH_NAME = [
   "January", "February", "March", "April", 
@@ -69,6 +78,19 @@ function receiveCategoryBlogs(json) {
   }
 }
 
+function requestBlogDetail() {
+  return {
+    type: REQUEST_BLOG_DETAIL
+  }
+}
+
+function receiveBlogDetail(json) {
+  return {
+    type: RECEIVE_BLOG_DETAIL,
+    items: json
+  }
+}
+
 export function formatYMD(posted) {
   var date = new Date(posted);
   if (!isNaN(date.getMonth()) && !isNaN(date.getDate()) && !isNaN(date.getFullYear())) {
@@ -124,7 +146,10 @@ export function fetchAbout() {
     
     fetch(request)
     .then(response => response.json())
-    .then(json => dispatch(receiveAbout(json)))
+    .then(json => {
+      json[0].body = marked(json[0].body);
+      dispatch(receiveAbout(json))
+    })
     .catch(ex => console.warn('Parsing Failed', ex));
   }
 }
@@ -143,6 +168,23 @@ export function fetchBlogs() {
     fetch(request)
     .then(response => response.json())
     .then(json => dispatch(receiveBlogs(json)))
+    .catch(ex => console.warn('Parsing Failed', ex));
+  }
+}
+
+export function fetchBlogDetail(id) {
+  return dispatch => {
+    dispatch(requestBlogDetail())
+
+    var data = new FormData();
+    data.append("json", JSON.stringify({post_id: id}));
+  
+    fetch("/api/blogs/detail/", {method: "POST", body: data})
+    .then(response => response.json())
+    .then(json => {
+      json[0].body = marked(json[0].body);
+      dispatch(receiveBlogDetail(json));
+    })
     .catch(ex => console.warn('Parsing Failed', ex));
   }
 }

@@ -8,6 +8,8 @@ import {
   RECEIVE_CATEGORIES,
   REQUEST_CATEGORYBLOGS,
   RECEIVE_CATEGORYBLOGS,
+  REQUEST_BLOG_DETAIL,
+  RECEIVE_BLOG_DETAIL,
   CHANGE_PATH
 } from '../constant/actionTypes';
 
@@ -15,6 +17,18 @@ function categoryblogs(state = {}, action) {
   switch(action.type) {
     case REQUEST_CATEGORYBLOGS:
     case RECEIVE_CATEGORYBLOGS:
+      let obj = Object.assign({}, state, action);
+      // console.log("blogs reducer", action.type, obj);
+      return obj;
+    default:
+      return state;
+  }
+}
+
+function blogdetail(state = {}, action) {
+  switch(action.type) {
+    case REQUEST_BLOG_DETAIL:
+    case RECEIVE_BLOG_DETAIL:
       let obj = Object.assign({}, state, action);
       // console.log("blogs reducer", action.type, obj);
       return obj;
@@ -71,6 +85,7 @@ function selectedPath(state = {}, action) {
 }
 
 const reducer = combineReducers({
+  blogdetail,
   categoryblogs,
   categories,
   blogs,
