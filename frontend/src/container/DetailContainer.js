@@ -6,7 +6,7 @@ import Detail from '../component/Detail';
 import { fetchBlogDetail, changeSelectedPath } from '../action';
 import {
     RECEIVE_BLOG_DETAIL,
-  } from '../constant/actionTypes';
+} from '../constant/actionTypes';
 
 class DetailContainer extends Component {
     componentDidMount() {
