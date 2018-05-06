@@ -9,12 +9,12 @@
     max-width: 335;
 }
 
-.a {
+.link {
     text-decoration: none;
     color: #f36c3d;
 }
 
-.a:hover {
+.link:hover {
     color:#000000;
 }
 

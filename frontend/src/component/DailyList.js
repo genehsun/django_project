@@ -23,11 +23,11 @@ class BlogList extends Component {
                         <div key={index}>
                             <Card>
                                 <div>
-                                    <CardTitle className="header" title={this.handleTitle(daily)} titleColor="#ffffff" />
+                                    <CardTitle style={{backgroundColor: "#f36c3d"}} title={this.handleTitle(daily)} titleColor="#ffffff" />
                                 </div>
                                 <div className="detail-card">
                                     <CardHeader title={daily.title_1} titleColor="#f36c3d" subtitle={daily.sourceDomain_1} avatar={daily.sourceLogo_1}/>
-                                    <CardText>{daily.short_content_1}</CardText>
+                                    <CardText className="article-content">{daily.short_content_1}</CardText>
                                     <CardActions>
                                         <FlatButton 
                                             style={{color: '#f36c3d'}} 
@@ -41,7 +41,7 @@ class BlogList extends Component {
                                     </CardActions>
                                     <Divider />
                                     <CardHeader title={daily.title_2} titleColor="#f36c3d" subtitle={daily.sourceDomain_2} avatar={daily.sourceLogo_2}/>
-                                    <CardText>{daily.short_content_2}</CardText>
+                                    <CardText className="article-content">{daily.short_content_2}</CardText>
                                     <CardActions>
                                         <FlatButton 
                                             style={{color: '#f36c3d'}} 
@@ -55,7 +55,7 @@ class BlogList extends Component {
                                     </CardActions>
                                     <Divider />
                                     <CardHeader title={daily.title_3} titleColor="#f36c3d" subtitle={daily.sourceDomain_3} avatar={daily.sourceLogo_3}/>
-                                    <CardText>{daily.short_content_3}</CardText>
+                                    <CardText className="article-content">{daily.short_content_3}</CardText>
                                     <CardActions>
                                         <FlatButton 
                                             style={{color: '#f36c3d'}} 

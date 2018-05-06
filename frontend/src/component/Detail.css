@@ -13,7 +13,13 @@
 }
 
 .article-detail {
+  padding-left: 3%;
+  padding-right: 3%;
   font-family: Roboto, sans-serif;
+}
+
+.article-content {
+  line-height: 2.0em;
 }
 
 .article-detail h2 {
@@ -138,12 +144,8 @@
 }
 
 .detail-card {
-    /* padding-left: 3%;
-    padding-right: 3%; */
+    padding-left: 3%;
+    padding-right: 3%;
     padding-top: 0%;
     padding-bottom: 3%;
-}
-
-.header {
-  background-color: #f36c3d;
 }

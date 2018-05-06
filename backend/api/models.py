@@ -72,8 +72,8 @@ class About(models.Model):
         return ('view_about', None, { 'slug': self.slug})
 
 class Dailys(models.Model):
-    title = models.CharField(max_length=10, unique=True, default="default title")
-    slug = models.SlugField(max_length=10, unique=True)
+    title = models.CharField(max_length=100, unique=True, default="default title")
+    slug = models.SlugField(max_length=100, unique=True)
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
 
     title_1 = models.CharField(max_length=10, unique=True)

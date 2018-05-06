@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loading from '../component/Loading';
-import Detail from '../component/Detail';
+import About from '../component/About';
 import { fetchAbout, changeSelectedPath } from '../action';
 
 class AboutContainer extends Component {
@@ -17,7 +17,7 @@ class AboutContainer extends Component {
         if (this.props.isFetching) {
             return (<Loading />)
         } else {
-            return (<Detail content={this.props.about.contents[0]} />)
+            return (<About content={this.props.about.contents[0]} />)
         }
     };
 }

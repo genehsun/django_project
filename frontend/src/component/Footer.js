@@ -8,11 +8,13 @@ class AppFooter extends Component {
 		return (
 			<div className="footer">
                 <p className="link-container">
-                    <Link className="a" to="/about">关于本站</Link>
+                    <Link className="link" to="/">首页</Link>
                     {' | '}
-                    <Link className="a" to="https://github.com/genehsun/django_project" target="_blank">GitHub</Link>
+                    <Link className="link" to="/about">关于</Link>
                     {' | '}
-                    <Link className="a" to="https://github.com/genehsun/django_project/issues" target="_blank">反馈问题</Link>
+                    <Link className="link" to="https://github.com/genehsun/django_project" target="_blank">GitHub</Link>
+                    {' | '}
+                    <Link className="link" to="https://github.com/genehsun/django_project/issues" target="_blank">反馈问题</Link>
                     {' | '}Made by Wakim Sun &copy; 2018
                 </p>
 			</div>
