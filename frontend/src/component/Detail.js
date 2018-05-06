@@ -9,7 +9,7 @@ class Detail extends Component {
         changePageTitle(this.props.content.title);
 
 		return (
-			<div className="detail-container">
+			<div>
                 <Card className="detail-card">
                     <CardTitle title={this.props.content.title} subtitle={formatYMD(this.props.content.posted)}/>
                     <CardText className="article-detail" dangerouslySetInnerHTML={{ __html: this.props.content.body }} />

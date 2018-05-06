@@ -1,0 +1,26 @@
+.footer {
+    text-align: center;
+    padding: 5%;
+}
+
+.link-container {
+    margin: 0 auto;
+    padding: 2%;
+    max-width: 335;
+}
+
+.a {
+    text-decoration: none;
+    color: #f36c3d;
+}
+
+.a:hover {
+    color:#000000;
+}
+
+.copy-right {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 335;
+    color: #f36c3d;
+}

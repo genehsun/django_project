@@ -1,5 +1,9 @@
 
 import {
+  REQUEST_DAILY_DETAIL,
+  RECEIVE_DAILY_DETAIL,
+  REQUEST_DAILYS,
+  RECEIVE_DAILYS,
   REQUEST_BLOGS, 
   RECEIVE_BLOGS, 
   REQUEST_ABOUT,
@@ -20,10 +24,16 @@ marked.setOptions({
   highlight: code => hljs.highlightAuto(code).value,
 });
 
-const MONTH_NAME = [
-  "January", "February", "March", "April", 
-  "May", "June", "July", "August", 
-  "September", "October", "November", "December"
+// const MONTH_NAME = [
+//   "January", "February", "March", "April", 
+//   "May", "June", "July", "August", 
+//   "September", "October", "November", "December"
+// ];
+
+const MONTH_NAME_0 = [
+  "01", "02", "03", "04", 
+  "05", "06", "07", "08", 
+  "09", "10", "11", "12"
 ];
 
 function requestAbout() {
@@ -36,6 +46,19 @@ function receiveAbout(json) {
   return {
     type: RECEIVE_ABOUT,
     contents: json
+  }
+}
+
+function requestDailys() {
+  return {
+    type: REQUEST_DAILYS
+  }
+}
+
+function receiveDailys(json) {
+  return {
+    type: RECEIVE_DAILYS,
+    items: json
   }
 }
 
@@ -84,6 +107,19 @@ function requestBlogDetail() {
   }
 }
 
+function requestDailyDetail() {
+  return {
+    type: REQUEST_DAILY_DETAIL
+  }
+}
+
+function receiveDailyDetail(json) {
+  return {
+    type: RECEIVE_DAILY_DETAIL,
+    items: json
+  }
+}
+
 function receiveBlogDetail(json) {
   return {
     type: RECEIVE_BLOG_DETAIL,
@@ -94,7 +130,8 @@ function receiveBlogDetail(json) {
 export function formatYMD(posted) {
   var date = new Date(posted);
   if (!isNaN(date.getMonth()) && !isNaN(date.getDate()) && !isNaN(date.getFullYear())) {
-      var format_date = MONTH_NAME[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+      // var format_date = MONTH_NAME[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+      var format_date = date.getFullYear() + "/" + MONTH_NAME_0[date.getMonth()] + "/" + date.getDate();
       return format_date;
   } else {
       console.warn("日期参数有误！", posted);
@@ -172,6 +209,26 @@ export function fetchBlogs() {
   }
 }
 
+export function fetchDailys() {
+  return dispatch => {
+    dispatch(requestDailys())
+    
+    var headers = new Headers();
+    headers.append('Accept', 'application/json');
+    var request = new Request("/api/dailys/", {
+        headers: headers,
+        method:"GET"
+    });
+    
+    fetch(request)
+    .then(response => response.json())
+    .then(json => {
+      dispatch(receiveDailys(json));
+    })
+    .catch(ex => console.warn('Parsing Failed', ex));
+  }
+}
+
 export function fetchBlogDetail(id) {
   return dispatch => {
     dispatch(requestBlogDetail())
@@ -184,6 +241,27 @@ export function fetchBlogDetail(id) {
     .then(json => {
       json[0].body = marked(json[0].body);
       dispatch(receiveBlogDetail(json));
+    })
+    .catch(ex => console.warn('Parsing Failed', ex));
+  }
+}
+
+export function fetchDailyDetail(daily_id) {
+  return dispatch => {
+    dispatch(requestDailyDetail())
+
+    var data = new FormData();
+    data.append("json", JSON.stringify({daily_id: daily_id}));
+  
+    fetch("/api/dailys/detail/", {method: "POST", body: data})
+    .then(response => response.json())
+    .then(json => {
+      if (json && json[0]) {
+        json[0].body_1 = marked(json[0].body_1);
+        json[0].body_2 = marked(json[0].body_2);
+        json[0].body_3 = marked(json[0].body_3);
+      }
+      dispatch(receiveDailyDetail(json));
     })
     .catch(ex => console.warn('Parsing Failed', ex));
   }

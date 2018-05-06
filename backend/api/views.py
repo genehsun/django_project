@@ -5,8 +5,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 from api.serializers import UserSerializer, GroupSerializer
-from api.models import Blog, Category, About
-from api.serializers import BlogSerializer, CategorySerializer, AboutSerializer
+from api.models import Blog, Category, About, Dailys
+from api.serializers import BlogSerializer, CategorySerializer, AboutSerializer, DailysSerializer
 from api.permissions import IsOwner, IsOwnerOrReadOnly
 from rest_framework import generics
 from rest_framework.decorators import detail_route, list_route, api_view
@@ -66,3 +66,13 @@ class AboutViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticatedOrReadOnly, 
         IsOwnerOrReadOnly
     )
+
+class DailysViewSet(viewsets.ModelViewSet):
+    queryset = Dailys.objects.all().order_by("-posted")
+    serializer_class = DailysSerializer
+
+    @list_route(methods=['post'])
+    def detail(self, request, *args, **kwargs):
+        daily_id = json.loads(request.data['json'])['daily_id']
+        queryset = Dailys.objects.filter(id=daily_id)
+        return Response(queryset.values())

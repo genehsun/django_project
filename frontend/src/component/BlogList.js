@@ -22,7 +22,7 @@ class BlogList extends Component {
                                     <RaisedButton primary={true} label="Read More" containerElement={<Link to={"/post/"+blog.id} />} />
                                 </CardActions>
                             </Card>
-                            <div style={{marginBottom: '5%'}} />
+                            <div style={{marginBottom: '3%'}} />
                         </div>
                     );
                 })}

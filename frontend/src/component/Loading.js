@@ -5,7 +5,7 @@ import "./Loading.css";
 class Loading extends Component {
 	render() {
 		return (
-			<div className="loading-container">
+			<div>
 				<Paper className="loading-paper" zDepth={1}></Paper>
 			</div>
 		);

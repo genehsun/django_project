@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider'
+import Divider from 'material-ui/Divider';
 import ActionLabel from 'material-ui/svg-icons/action/label';
 import PropTypes from 'prop-types'; 
 import AppBar from 'material-ui/AppBar';
@@ -33,10 +33,10 @@ class MasterContainer extends Component {
         || versions.android 
         || versions.iPhone 
         || versions.iPad) {        
-            console.log('mobile');
+            // console.log('mobile');
             this.setState({ open: false, docked: false, isMobile: true });
         } else {
-            console.log('pc');
+            // console.log('pc');
             this.setState({ open: true, docked: true, isMobile: false });
         }
     };
@@ -78,7 +78,8 @@ class MasterContainer extends Component {
         }
 
         var pcStyle = {
-            paddingLeft: '17.8%',
+            paddingLeft: '23.8%',
+            paddingRight: '5%',
             paddingTop: '4%'
         }
 

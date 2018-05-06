@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^$', include('blog.urls')),
     url(r'^about', include('blog.urls')),
     url(r'^post/(\d+)', include('blog.urls')),
+    url(r'^daily/(\d+)', include('blog.urls')),
 ]
