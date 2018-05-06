@@ -72,29 +72,29 @@ class About(models.Model):
         return ('view_about', None, { 'slug': self.slug})
 
 class Dailys(models.Model):
-    title = models.CharField(max_length=100, unique=True, default="default title")
-    slug = models.SlugField(max_length=100, unique=True)
+    title = models.CharField(max_length=10, unique=True, default="default title")
+    slug = models.SlugField(max_length=10, unique=True)
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
 
-    title_1 = models.CharField(max_length=100, unique=True)
+    title_1 = models.CharField(max_length=10, unique=True)
     sourceLogo_1 = models.URLField(max_length=200)
     sourceDomain_1 = models.CharField(max_length=200)
     originalLink_1 = models.URLField(max_length=200, unique=True)
-    short_content_1 = models.TextField(default="default review")
+    short_content_1 = models.TextField(max_length=180, default="default review")
     body_1 = models.TextField()
 
-    title_2 = models.CharField(max_length=100, unique=True)
+    title_2 = models.CharField(max_length=10, unique=True)
     sourceLogo_2 = models.URLField(max_length=200)
     sourceDomain_2 = models.CharField(max_length=200)
     originalLink_2 = models.URLField(max_length=200, unique=True)
-    short_content_2 = models.TextField(default="default review")
+    short_content_2 = models.TextField(max_length=180, default="default review")
     body_2 = models.TextField()
 
-    title_3 = models.CharField(max_length=100, unique=True)
+    title_3 = models.CharField(max_length=10, unique=True)
     sourceLogo_3 = models.URLField(max_length=200)
     sourceDomain_3 = models.CharField(max_length=200)
     originalLink_3 = models.URLField(max_length=200, unique=True)
-    short_content_3 = models.TextField(default="default review")
+    short_content_3 = models.TextField(max_length=180, default="default review")
     body_3 = models.TextField()
 
     owner = models.ForeignKey('auth.User',

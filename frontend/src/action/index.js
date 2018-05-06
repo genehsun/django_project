@@ -24,18 +24,6 @@ marked.setOptions({
   highlight: code => hljs.highlightAuto(code).value,
 });
 
-// const MONTH_NAME = [
-//   "January", "February", "March", "April", 
-//   "May", "June", "July", "August", 
-//   "September", "October", "November", "December"
-// ];
-
-const MONTH_NAME_0 = [
-  "01", "02", "03", "04", 
-  "05", "06", "07", "08", 
-  "09", "10", "11", "12"
-];
-
 function requestAbout() {
   return {
     type: REQUEST_ABOUT
@@ -128,10 +116,21 @@ function receiveBlogDetail(json) {
 }
 
 export function formatYMD(posted) {
-  var date = new Date(posted);
+  let date = new Date(posted);
   if (!isNaN(date.getMonth()) && !isNaN(date.getDate()) && !isNaN(date.getFullYear())) {
-      // var format_date = MONTH_NAME[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
-      var format_date = date.getFullYear() + "/" + MONTH_NAME_0[date.getMonth()] + "/" + date.getDate();
+      let month = "";
+      let day = "";
+      if (date.getMonth() >= 10) {
+        month = date.getMonth() + 1;
+      } else {
+        month = "0" + (date.getMonth() + 1);
+      }
+      if (date.getDate() >= 10) {
+        day = date.getDate();
+      } else {
+        day = "0" + date.getDate();
+      }
+      let format_date = date.getFullYear() + "/" + month + "/" + day;
       return format_date;
   } else {
       console.warn("日期参数有误！", posted);

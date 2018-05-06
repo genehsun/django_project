@@ -9,7 +9,8 @@ import { formatYMD, changePageTitle } from '../action';
 class BlogList extends Component {
 
     handleTitle = (daily) => {
-        return formatYMD(daily.posted) + " 第" + daily.id + "期"
+        let counter = " 第" + daily.id + "期";
+        return formatYMD(daily.posted) + " · " + counter;
     }
 
 	render() {
