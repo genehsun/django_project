@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import "./Detail.css";
 import { formatYMD, changePageTitle } from '../action';

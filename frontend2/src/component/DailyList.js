@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import "./Detail.css";
 import { formatYMD, changePageTitle } from '../action';
 
-class BlogList extends Component {
+class DailyList extends Component {
 
     handleTitle = (daily) => {
         let counter = " 第" + daily.id + "期";
@@ -78,8 +78,8 @@ class BlogList extends Component {
 	};
 }
 
-BlogList.propTypes = {
+DailyList.propTypes = {
     items: PropTypes.array.isRequired,
 }
 
-export default BlogList;
+export default DailyList;

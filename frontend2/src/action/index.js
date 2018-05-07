@@ -4,16 +4,8 @@ import {
   RECEIVE_DAILY_DETAIL,
   REQUEST_DAILYS,
   RECEIVE_DAILYS,
-  REQUEST_BLOGS, 
-  RECEIVE_BLOGS, 
   REQUEST_ABOUT,
   RECEIVE_ABOUT,
-  REQUEST_CATEGORIES,
-  RECEIVE_CATEGORIES,
-  REQUEST_CATEGORYBLOGS,
-  RECEIVE_CATEGORYBLOGS,
-  REQUEST_BLOG_DETAIL,
-  RECEIVE_BLOG_DETAIL,
   CHANGE_PATH,
 } from '../constant/actionTypes';
 
@@ -50,51 +42,6 @@ function receiveDailys(json) {
   }
 }
 
-function requestBlogs() {
-  return {
-    type: REQUEST_BLOGS
-  }
-}
-
-function receiveBlogs(json) {
-  return {
-    type: RECEIVE_BLOGS,
-    items: json
-  }
-}
-
-function requestCategories() {
-  return {
-    type: REQUEST_CATEGORIES
-  }
-}
-
-function receiveCategories(json) {
-  return {
-    type: RECEIVE_CATEGORIES,
-    items: json
-  }
-}
-
-function requestCategoryBlogs() {
-  return {
-    type: REQUEST_CATEGORYBLOGS
-  }
-}
-
-function receiveCategoryBlogs(json) {
-  return {
-    type: RECEIVE_CATEGORYBLOGS,
-    items: json
-  }
-}
-
-function requestBlogDetail() {
-  return {
-    type: REQUEST_BLOG_DETAIL
-  }
-}
-
 function requestDailyDetail() {
   return {
     type: REQUEST_DAILY_DETAIL
@@ -104,13 +51,6 @@ function requestDailyDetail() {
 function receiveDailyDetail(json) {
   return {
     type: RECEIVE_DAILY_DETAIL,
-    items: json
-  }
-}
-
-function receiveBlogDetail(json) {
-  return {
-    type: RECEIVE_BLOG_DETAIL,
     items: json
   }
 }
@@ -190,24 +130,6 @@ export function fetchAbout() {
   }
 }
 
-export function fetchBlogs() {
-  return dispatch => {
-    dispatch(requestBlogs())
-    
-    var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    var request = new Request("/api/blogs/", {
-        headers: headers,
-        method:"GET"
-    });
-    
-    fetch(request)
-    .then(response => response.json())
-    .then(json => dispatch(receiveBlogs(json)))
-    .catch(ex => console.warn('Parsing Failed', ex));
-  }
-}
-
 export function fetchDailys() {
   return dispatch => {
     dispatch(requestDailys())
@@ -223,23 +145,6 @@ export function fetchDailys() {
     .then(response => response.json())
     .then(json => {
       dispatch(receiveDailys(json));
-    })
-    .catch(ex => console.warn('Parsing Failed', ex));
-  }
-}
-
-export function fetchBlogDetail(id) {
-  return dispatch => {
-    dispatch(requestBlogDetail())
-
-    var data = new FormData();
-    data.append("json", JSON.stringify({post_id: id}));
-  
-    fetch("/api/blogs/detail/", {method: "POST", body: data})
-    .then(response => response.json())
-    .then(json => {
-      json[0].body = marked(json[0].body);
-      dispatch(receiveBlogDetail(json));
     })
     .catch(ex => console.warn('Parsing Failed', ex));
   }
@@ -266,34 +171,3 @@ export function fetchDailyDetail(daily_id) {
   }
 }
 
-export function fetchCategoryBlogs(id) {
-  return dispatch => {
-    dispatch(requestCategoryBlogs())
-
-    var data = new FormData();
-    data.append("json", JSON.stringify({category: id}));
-  
-    fetch("/api/categoryblogs/recent/", {method: "POST", body: data})
-    .then(response => response.json())
-    .then(json => dispatch(receiveCategoryBlogs(json)))
-    .catch(ex => console.warn('Parsing Failed', ex));
-  }
-}
-
-export function fetchCategories() {
-  return dispatch => {
-    dispatch(requestCategories())
-    
-    var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    var request = new Request("/api/categories/", {
-        headers: headers,
-        method:"GET"
-    });
-    
-    fetch(request)
-    .then(response => response.json())
-    .then(json => dispatch(receiveCategories(json)))
-    .catch(ex => console.warn('Parsing Failed', ex));
-  }
-}

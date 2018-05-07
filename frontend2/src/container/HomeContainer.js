@@ -7,6 +7,7 @@ import ListContainer from '../container/ListContainer';
 import DailyContainer from '../container/DailyContainer';
 import { getVersions } from '../action';
 import AboutContainer from '../container/AboutContainer';
+import NotFound from '../component/NotFound';
 
 class HomeContainer extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ class HomeContainer extends Component {
                             <Route exact path="/" component={ListContainer} />
                             <Route path="/daily/:daily_id/:id" component={DailyContainer} />
                             <Route path="/about" component={AboutContainer} />
+                            <Route path="*" component={NotFound}/>
                         </Switch>
                     </div>
                     <Footer />
