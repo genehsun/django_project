@@ -19,7 +19,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 // It requires a trailing slash, or the file assets will get an incorrect path.
 
 // const publicPath = paths.servedPath;
-const publicPath = "/static/bundles/";
+const publicPath = "/static/blog/bundles/";
 
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
