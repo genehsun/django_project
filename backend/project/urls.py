@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^api/', include('api.urls')),
     url(r'^category/', include('blog.urls')),
     url(r'^$', include('blog.urls')),
+    url(r'^blog/', include('blog.urls')),
     url(r'^about', include('blog.urls')),
     url(r'^post/(\d+)', include('blog.urls')),
     url(r'^daily/(\d+)', include('blog.urls')),

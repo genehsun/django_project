@@ -24,8 +24,8 @@ DATABASES = {
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'blog/webpack/webpack-stats.dev.json'),
+        'BUNDLE_DIR_NAME': 'blog/bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack/blog/webpack-stats.dev.json'),
     }
 }
 

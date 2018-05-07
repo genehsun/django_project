@@ -43,7 +43,8 @@ module.exports = {
   dotenv: resolveApp('.env'),
   
   // appBuild: resolveApp('build'),
-  appBuild: resolveApp('../backend/blog/assets/bundles/'),
+  // appBuild: resolveApp('../backend/blog/assets/bundles/'),
+  appBuild: resolveApp('../backend/build/blog/bundles/'),
 
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
@@ -55,5 +56,5 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
-  statsRoot: resolveApp('../backend/blog/webpack'),
+  statsRoot: resolveApp('../backend/webpack/blog'),
 };
