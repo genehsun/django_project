@@ -10,17 +10,17 @@ ALLOWED_HOSTS = []
 
 WSGI_APPLICATION = 'project.wsgidev.application'
 
-# WEBPACK_LOADER = {
-#     'DEFAULT': {
-#         'BUNDLE_DIR_NAME': 'blog/bundles/',
-#         'STATS_FILE': os.path.join(BASE_DIR, 'webpack/blog/webpack-stats.dev.json'),
-#     }
-# }
-
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'daily/bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack/daily/webpack-stats.dev.json'),
+        'BUNDLE_DIR_NAME': 'blog/bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack/blog/webpack-stats.dev.json'),
     }
 }
+
+# WEBPACK_LOADER = {
+#     'DEFAULT': {
+#         'BUNDLE_DIR_NAME': 'daily/bundles/',
+#         'STATS_FILE': os.path.join(BASE_DIR, 'webpack/daily/webpack-stats.dev.json'),
+#     }
+# }
 

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MasterContainer from './container/MasterContainer';
-// import HomeContainer from './container/HomeContainer';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 
@@ -19,7 +17,6 @@ class App extends Component {
             <Provider store={store}>
                 <MuiThemeProvider muiTheme={getMuiTheme({ appBar: {height: 56} })}>
                     <MasterContainer />
-                    {/* <HomeContainer /> */}
                 </MuiThemeProvider>
             </Provider>
         );

@@ -1,9 +1,5 @@
 import { combineReducers } from 'redux';
 import {
-  REQUEST_DAILY_DETAIL,
-  RECEIVE_DAILY_DETAIL,
-  REQUEST_DAILYS,
-  RECEIVE_DAILYS,
   REQUEST_BLOGS,
   RECEIVE_BLOGS,
   REQUEST_ABOUT,
@@ -41,18 +37,6 @@ function blogdetail(state = {}, action) {
   }
 }
 
-function dailydetail(state = {}, action) {
-  switch(action.type) {
-    case REQUEST_DAILY_DETAIL:
-    case RECEIVE_DAILY_DETAIL:
-      let obj = Object.assign({}, state, action);
-      // console.log("blogs reducer", action.type, obj);
-      return obj;
-    default:
-      return state;
-  }
-}
-
 function categories(state = {}, action) {
   switch(action.type) {
     case REQUEST_CATEGORIES:
@@ -71,18 +55,6 @@ function blogs(state = {}, action) {
     case RECEIVE_BLOGS:
       let obj = Object.assign({}, state, action);
       // console.log("blogs reducer", action.type, obj);
-      return obj;
-    default:
-      return state;
-  }
-}
-
-function dailys(state = {}, action) {
-  switch(action.type) {
-    case REQUEST_DAILYS:
-    case RECEIVE_DAILYS:
-      let obj = Object.assign({}, state, action);
-      // console.log("DAILYS reducer", action.type, obj);
       return obj;
     default:
       return state;
@@ -113,8 +85,6 @@ function selectedPath(state = {}, action) {
 }
 
 const reducer = combineReducers({
-  dailys,
-  dailydetail,
   blogdetail,
   categoryblogs,
   categories,
