@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'webpack_loader',
     'api',
-    'blog',
     'rest_framework.authtoken'
 ]
 
@@ -66,7 +65,6 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, "blog/assets"),
     os.path.join(BASE_DIR, "build"),
 ]
 
@@ -78,6 +76,18 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ]
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 

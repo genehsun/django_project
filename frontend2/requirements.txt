@@ -1,0 +1,5 @@
+npm install webpack-bundle-tracker
+npm install react-router-dom
+npm install marked
+npm install material-ui
+npm install highlight.js

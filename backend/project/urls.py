@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
-    url(r'^category/', include('blog.urls')),
-    url(r'^$', include('blog.urls')),
-    url(r'^blog/', include('blog.urls')),
-    url(r'^about', include('blog.urls')),
-    url(r'^post/(\d+)', include('blog.urls')),
-    url(r'^daily/(\d+)', include('blog.urls')),
+
+    url(r'^$', TemplateView.as_view(template_name="daily/index.html")),
+    url(r'^daily/(\d+)', TemplateView.as_view(template_name="daily/index.html")),
+    url(r'^about', TemplateView.as_view(template_name="daily/index.html")),
+
+    url(r'^blog/', TemplateView.as_view(template_name="blog/index.html")),
+    url(r'^category/', TemplateView.as_view(template_name="blog/index.html")),
+    url(r'^post/(\d+)', TemplateView.as_view(template_name="blog/index.html")),
 ]

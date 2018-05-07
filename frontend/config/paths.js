@@ -43,7 +43,6 @@ module.exports = {
   dotenv: resolveApp('.env'),
   
   // appBuild: resolveApp('build'),
-  // appBuild: resolveApp('../backend/blog/assets/bundles/'),
   appBuild: resolveApp('../backend/build/blog/bundles/'),
 
   appPublic: resolveApp('public'),
