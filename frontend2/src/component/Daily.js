@@ -7,8 +7,6 @@ import { formatYMD, changePageTitle } from '../action';
 
 class Daily extends Component {
 	render() {
-        changePageTitle(this.props.content.title_1);
-
         let title = "";
         let body = "";
         let originalLink = "";
@@ -26,6 +24,8 @@ class Daily extends Component {
             originalLink = this.props.content.originalLink_3;
         } else {
         }
+
+        changePageTitle(title);
 
         let counter = '第' + this.props.content.id + '期';
         let subtitle = formatYMD(this.props.content.posted) + ' · ' + counter;
