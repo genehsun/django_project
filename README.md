@@ -1,6 +1,6 @@
 ### Technical Point
 
-网站采用前后端分离的技术方案，前端使用React全家桶，还用了Material-UI组件库，用Webpack构建SPA应用。后台使用Django Web框架，并接入Django REST Framework提供RESTFul API，还用了Django Webpack Loader实现前后端的绑定。项目部署在Apache服务上，服务器目前用的是搬瓦工购买的VPS，在namesilo购买了(https://wakim.site)域名，并且在上面把域名映射到服务器的IP。
+网站采用前后端分离的技术方案，前端使用React全家桶，还用了Material-UI组件库，用Webpack构建SPA应用。后台使用Django Web框架，并接入Django REST Framework提供RESTFul API，还用了Django Webpack Loader实现前后端的绑定。项目部署在Apache服务上，服务器目前用的是搬瓦工购买的VPS，在namesilo购买了域名，并且在上面把域名映射到服务器的IP。https://wakim.site
 
 ### How To Run
 
