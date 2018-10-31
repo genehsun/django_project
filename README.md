@@ -67,7 +67,7 @@ Email：genehsun@gmail.com<br/>
 
 ### Donation
 
-网站的代码开源在GitHub上供大家交流学习，我有时间就会对它做一些增增改改。内容的运营也需要我花时间去寻找、阅读和概括，并收集发布。网站目前每个月的硬性开销（搬瓦工的vps服务、namesilo的域名服务）在50RMB左右。如果你认可我的这些劳动成果，可以请我喝一杯咖啡，也会让我更有动力继续下去。如果域名访问不了说明我没有续费，vps服务被搬瓦工回收了。
+网站的代码开源在GitHub上供大家交流学习，我有时间就会对它做一些增增改改。内容的运营也需要我花时间去寻找、阅读和概括，并收集发布。网站目前每个月的硬性开销（搬瓦工的vps服务、namesilo的域名服务）在50RMB左右。如果你认可我的这些劳动成果，可以请我喝一杯咖啡，也会让我更有动力继续下去。如果域名访问不了说明我没钱续费，vps服务被搬瓦工回收了。
 ![Donation](https://raw.githubusercontent.com/genehsun/django_project/master/picture/donation.JPG)
 
 
