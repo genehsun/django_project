@@ -1,7 +1,3 @@
-### Technical Point
-
-网站采用前后端分离的技术方案，前端使用React全家桶，还用了Material-UI组件库，用Webpack构建SPA应用。后台使用Django Web框架，并接入Django REST Framework提供RESTFul API，还用了Django Webpack Loader实现前后端的绑定。项目部署在Apache服务上，服务器目前用的是搬瓦工购买的VPS，在namesilo购买了域名，并且在上面把域名映射到服务器的IP。
-
 ### How To Run
 
 要在开发环境中运行本项目可以把代码clone到本地，在终端运行backend工程：
@@ -55,6 +51,10 @@ Django REST Framework提供了一个可视化的API查看界面，要查看项�
 * [ ] 服务器迁移提高访问速度
 * [ ] 独立服务器提供API与数据库访问
 
+### Technical Point
+
+采用前后端分离的技术方案，前端使用React全家桶，还用了Material-UI组件库，用Webpack构建SPA应用。后台使用Django Web框架，并接入Django REST Framework提供RESTFul API，还用了Django Webpack Loader实现前后端的绑定。项目部署在Apache服务上，服务器目前用的是搬瓦工购买的VPS，在namesilo购买了域名，并且在上面把域名映射到服务器的IP。
+
 ### Who Am I
 
 - 我是一名软件开发工程师，目前在杭州一家互联网公司工作。2012年毕业以来，先后在厦门和杭州两个城市工作。第一份工作在厦门一家日资企业，参与开发多款车载导航仪的音频软件，基于WinCE嵌入式系统。2014年4月转向移动互联网，在厦门一家创业公司做Android开发，与iOS组的同事一起开发了一套自研自用的跨平台框架，业务层使用Lua进行编写。机缘巧合，2016年9月来到了现在的公司。这里大牛云集，做出来的产品每天被百万级别的用户使用，要经常思考如何以更高效的方式去支撑业务的快速发展。在这里我开始使用基于Javascript打造的跨平台框架开发业务。虽然在2012年初实习的那几个月开发的是Html5游戏，但是那时候写的Javascript代码是最原生的写法，项目组织的也比较混乱。几年过去Javascript的技术栈已经发生了巨大的变化，加上当时用的时间短，后来的工作中也没再用到，所以这次使用Javascript可以说是重新开始。说到实习那段时光，也是我第一次接触Python。当时负责后端的哥们儿用的是web.py，他们是来自香港中文大学的学生，看中web.py的小巧和灵活，并且能够快速搭建起一个RESTFul Web Service。
@@ -64,6 +64,12 @@ Django REST Framework提供了一个可视化的API查看界面，要查看项�
 
 WeChat：WakimSun<br/>
 Email：genehsun@gmail.com<br/>
+
+### Donation
+
+网站的代码开源在GitHub上供大家交流学习，我有时间就会对它做一些增增改改。内容的运营也需要我花时间去寻找、阅读和概括，并收集发布。网站目前每个月的硬性开销（搬瓦工的vps服务、namesilo的域名服务）在50RMB左右。如果你认可我的这些劳动成果，可以请我喝一杯咖啡，也会让我更有动力继续下去。如果域名访问不了说明我没有续费，vps服务被搬瓦工回收了。
+![Donation](https://raw.githubusercontent.com/genehsun/django_project/master/picture/donation.JPG)
+
 
 
 
